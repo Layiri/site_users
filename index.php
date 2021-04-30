@@ -15,14 +15,11 @@ $users = $user->all();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>My Site</title>
 
-    <!--    <link href="web/css/product.css" rel="stylesheet">-->
-    <!--    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,500' rel='stylesheet' type='text/css'>-->
-    <!--    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+    <link href='ressources/css/app.css' rel='stylesheet' type='text/css'>
+
 
 
 </head>
@@ -42,6 +39,9 @@ $users = $user->all();
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="create.php">Create</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -49,13 +49,14 @@ $users = $user->all();
 
 
 <div class="container mx-auto ">
-    <table class="table table-striped table-bordered" data-toggle="table">
+    <table class="table table-striped table-bordered" data-toggle="table" data-pagination="true"
+           data-search="true">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Full name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
+            <th data-sortable="true" data-field="id" scope="col">ID</th>
+            <th data-sortable="true" data-field="name" scope="col">Full name</th>
+            <th data-sortable="true" data-field="email" scope="col">Email</th>
+            <th data-sortable="true" data-field="phone" scope="col">Phone</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -73,7 +74,7 @@ $users = $user->all();
                        href="update.php?id=<?= $user->id ?>"><i class="fa fa-edit"></i>
                     </a>
                     <a title="" class="btn btn-small btn-danger"
-                       href="controller/delete.php?id=<?=$user->id?>"><i
+                       href="controller/delete.php?id=<?= $user->id ?>"><i
                                 class="fa fa-trash"></i> </a>
 
                 </td>
@@ -88,13 +89,19 @@ $users = $user->all();
 
 <footer class="py-5 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Layiri 2020</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Layiri 2021</p>
     </div>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<!--<script src="/web/js/product.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
+<script src="ressources/js/validator.js"></script>
+<script src="ressources/js/app.js"></script>
 
 </body>
 </html>

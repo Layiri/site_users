@@ -6,7 +6,7 @@ include_once '../models/User.php';
 
 try {
     $conn = Database::connectDatabase($config);
-    $user = new User($this->db);
+    $user = new User($conn);
 
     if (!empty($_GET)) {
         $user->id = strip_tags($_GET['id']);

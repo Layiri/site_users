@@ -35,6 +35,7 @@ class User
     }
 
     /**
+     * Insert user
      * @return bool
      */
     public function save()
@@ -51,6 +52,7 @@ class User
     }
 
     /**
+     * Update user
      * @return bool
      */
     public function update()
@@ -60,11 +62,16 @@ class User
             'name' => $this->full_name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'updated_at' => time()
+            'updated_at' => time(),
+            'id' => $this->id
         ));
         return true;
     }
 
+    /**
+     * Delete element
+     * @return bool
+     */
     public function delete()
     {
         $req = $this->db->prepare("DELETE FROM " . $this->table . " WHERE id=?");
@@ -73,11 +80,28 @@ class User
         return true;
     }
 
+    /**
+     * Get all users
+     * @return array/
+     */
     public function all()
     {
         $req = $this->db->prepare('SELECT *  FROM ' . $this->table);
         $req->execute();
         return $req->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    /**
+     * Get one user
+     * @param int $id
+     * @return array
+     */
+    public function one(int $id)
+    {
+        $req = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE id=:id");
+        $req->execute(['id' => $id]);
+
+        return $req->fetch();
     }
 
 }

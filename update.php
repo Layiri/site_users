@@ -1,3 +1,20 @@
+<?php
+
+include_once 'config/config.php';
+include_once 'helpers/Database.php';
+include_once 'models/User.php';
+
+$conn = Database::connectDatabase($config);
+$users = new User($conn);
+if ($_GET['id']) {
+    $id = $_GET['id'];
+    $user = $users->one($id);
+} else {
+    header("Location: index.php");
+    exit();
+}
+?>
+
 <html lang="en">
 
 <head>
@@ -14,7 +31,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="../index.php">My Site</a>
+        <a class="navbar-brand" href="index.php">My Site</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,7 +39,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="../index.php">Home
+                    <a class="nav-link" href="index.php">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -40,11 +57,11 @@
             </h2>
             <form id="id_landing-form" class="needs-validation" method="post"
                   onsubmit="return validateForm();"
-                  action="controller/create.php" role="form">
+                  action="controller/update.php" role="form">
                 <div class="messages"></div>
 
                 <div class="controls">
-                    <input id="id_user" type="hidden" name="id_user" required="required" value="1">
+                    <input id="id_user" type="hidden" name="id_user" required="required" value="<?= $user['id']?>">
 
                     <div class="col">
                         <div class="col-lg-6">
@@ -52,7 +69,7 @@
                                 <label for="form_name">Full Name *</label>
                                 <input id="id_form_name" type="text" name="name" class="form-control"
                                        placeholder="Please enter your full name" required="required"
-                                       data-error="Full name is required.">
+                                       data-error="Full name is required." value="<?= $user['name']?>">
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
@@ -61,7 +78,7 @@
                                 <label for="form_email">Email *</label>
                                 <input id="id_form_email" type="email" name="email" class="form-control"
                                        placeholder="Please enter your email" required="required"
-                                       data-error="Valid email is required.">
+                                       data-error="Valid email is required." value="<?= $user['email']?>">
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
@@ -71,7 +88,7 @@
                                 <input id="id_form_tel" type="text" name="form_tel" class="form-control"
                                        placeholder="Please enter your phone number" required="required"
                                        data-error="Valid telephon is required."
-                                       onkeypress="return event.charCode !== 32">
+                                       onkeypress="return event.charCode !== 32" value="<?= $user['phone']?>">
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
